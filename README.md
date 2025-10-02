@@ -9,7 +9,13 @@ Machine learning system for predicting NFL game outcomes using historical data a
 - Configuration system in place
 - Quality verification passed
 
-**Next: Phase 2** - Feature engineering
+**Phase 2: Complete** - Feature engineering pipeline
+- Team statistics aggregation with season weighting
+- Recent form calculation (last 4 games)
+- Game-level feature engineering
+- 115 predictive features per game
+
+**Next: Phase 3** - Model training
 
 ## Quick Start
 
@@ -40,10 +46,15 @@ EQ_NFL_Model/
 ├── config/
 │   └── settings.py          # Configuration management
 ├── src/
-│   └── data/
-│       └── loader.py         # NFL data loading from nflreadpy
+│   ├── data/
+│   │   └── loader.py         # NFL data loading from nflreadpy
+│   └── features/
+│       ├── aggregator.py     # Team statistics aggregation
+│       ├── recent_form.py    # Recent form calculation
+│       └── engineer.py       # Game feature engineering
 ├── scripts/
-│   └── test_data_load.py    # Data pipeline verification
+│   ├── test_data_load.py    # Data pipeline verification
+│   └── test_features.py     # Feature pipeline verification
 ├── data/
 │   ├── raw/                 # Raw NFL data and cache
 │   ├── processed/           # Processed features
@@ -76,10 +87,20 @@ Edit `config/settings.py` to customize:
 - 102 statistical columns available
 - Automatic caching for performance
 
+**Feature Engineering:**
+- Team aggregation with season weighting (2025: 3x, 2024: 2x, 2023: 1x)
+- Recent form analysis (last 4 games per team)
+- 115 predictive features per game including:
+  - Team averages (passing, rushing, defense, EPA)
+  - Differentials (home vs away matchups)
+  - Recent form metrics (momentum, trends)
+  - Context features (home advantage, rest, betting lines)
+
 **Data Quality:**
 - All critical columns validated
-- No missing values in key fields
-- Ready for feature engineering
+- No missing values in feature columns
+- 56.2% home win rate (realistic home field advantage)
+- Ready for model training
 
 ## Development Phases
 
@@ -90,11 +111,12 @@ Edit `config/settings.py` to customize:
 - [x] Quality verification
 - [x] Documentation
 
-### Phase 2: Feature Engineering (Next)
-- [ ] Team statistics aggregation
-- [ ] Recent form calculation
-- [ ] Feature engineering pipeline
-- [ ] Feature documentation
+### Phase 2: Feature Engineering ✓
+- [x] Team statistics aggregation
+- [x] Recent form calculation
+- [x] Feature engineering pipeline
+- [x] Feature documentation
+- [x] Testing and verification
 
 ### Phase 3: Model Training
 - [ ] Win probability model
@@ -142,11 +164,16 @@ Verify the data pipeline:
 python scripts/test_data_load.py
 ```
 
-Expected output:
-- 842 games loaded
-- 1268 team-game records
+Verify the feature engineering pipeline:
+```bash
+python scripts/test_features.py
+```
+
+Expected output (test_features.py):
+- 634 games with features
+- 115 predictive features per game
 - All quality checks passed
-- Current week games displayed
+- Sample matchup analysis displayed
 
 ## Dependencies
 
@@ -183,5 +210,5 @@ First data load takes 30-60 seconds (downloads from source). Subsequent loads us
 ---
 
 **Project:** EQ NFL Model  
-**Version:** Phase 1 Complete  
+**Version:** Phase 2 Complete  
 **Last Updated:** October 2, 2025
