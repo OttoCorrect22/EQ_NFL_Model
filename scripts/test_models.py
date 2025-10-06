@@ -28,6 +28,11 @@ from src.models.trainer import NFLModelTrainer
 from src.models.predictor import NFLPredictor
 import pandas as pd
 import logging
+import io
+
+# Fix Windows Unicode encoding issues
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # Configure logging
 logging.basicConfig(

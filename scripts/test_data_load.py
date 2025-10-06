@@ -21,6 +21,11 @@ sys.path.insert(0, str(project_root))
 from src.data.loader import get_loader
 from config.settings import data_config
 import pandas as pd
+import io
+
+# Fix Windows Unicode encoding issues
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 def print_header(text: str):

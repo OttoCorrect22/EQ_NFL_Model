@@ -25,6 +25,11 @@ from src.features.aggregator import TeamAggregator
 from src.features.recent_form import RecentFormCalculator
 from src.features.engineer import FeatureEngineer
 import pandas as pd
+import io
+
+# Fix Windows Unicode encoding issues
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 def print_header(text: str):

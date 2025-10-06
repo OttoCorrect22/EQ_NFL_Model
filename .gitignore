@@ -34,13 +34,17 @@ data/raw/*.parquet
 data/raw/*.csv
 data/processed/*.parquet
 data/processed/*.csv
-data/predictions/*.csv
 data/predictions/*.json
+
+# Allow specific prediction files for this project
+!data/predictions/test_predictions.csv
 
 # Model files (large binary files)
 models/trained/*.pkl
-models/trained/*.joblib
 models/trained/*.h5
+
+# Allow specific model files for this project
+!models/trained/*.joblib
 
 # Logs
 *.log
